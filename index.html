@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <section >
+        <div class="coontainer">
+            
+            <nav class="nav-player">
+                <h3>NBA FANTASY 1014-2024</h3>
+            </nav>
+            <h2>My Fantasy Team</h2>
+            <main class="main-player">
+                <div class="div-player">
+                    <h3>POINT GUARD</h3>
+                    <ul class="ul-player"></ul>
+                </div>
+                <div  class="div-player">
+                    <h3>SHOOTING GUARD</h3>
+                    <ul class="ul-player"></ul>
+                </div>
+                <div  class="div-player">
+                    <h3>SMALL FORWARD</h3>
+                    <ul class="ul-player"></ul>
+                </div>
+                <div class="div-player">
+                    <h3>Power Forward</h3>
+                    <ul class="ul-player"></ul>
+                </div>
+                <div class="div-player">
+                    <h3>CENTER</h3>
+                    <ul class="ul-player"></ul>
+                </div>
+            </main>
+        </div>
+    </section>
+    <section class="section-form-list">
+        <h2> NBA Player  Search</h2>
+        <div class="div-from">
+            
+            <form action="" class="form">
+                <div>
+                    <select name="" id="select-position">
+                        <option >PG</option>
+                        <option >SG</option>
+                        <option >SF</option>
+                        <option >PF</option>
+                        <option >C</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="" id="points-label"></label>
+                    <input type="range"  id="points" min="0" max="100000">
+                </div>
+                <div>
+                    <label for="" id="two-label"></label>
+                    <input type="range" id="two-percent" min="0" max="100">
+                </div>
+                <div>
+                    <label for="" id="three-label"></label>
+                    <input type="range" id="three-percent" min="0" max="100">
+                </div>
+                <div>
+                    <input type="submit" value="Search Player">
+                </div>
+            </form>
+            <div class="table-div">
+                <table class="table">
+                    <tr>
+                        <th>Player</th>
+                        <th>Position</th>
+                        <th>Points</th>
+                        <th>FG%</th>
+                        <th>3P%</th>
+                        <th>action</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+        <script src="javaScript/main.js"></script>
+</body>
+</html>
