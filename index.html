@@ -8,32 +8,34 @@
 </head>
 <body>
     <section >
-        <div class="coontainer">
+        <div class="container">
             
             <nav class="nav-player">
                 <h3>NBA FANTASY 1014-2024</h3>
             </nav>
-            <h2>My Fantasy Team</h2>
+            <div>
+                <h2>My Fantasy Team</h2>
+            </div>
             <main class="main-player">
                 <div class="div-player">
                     <h3>POINT GUARD</h3>
-                    <ul class="ul-player"></ul>
+                    <ul class="ul-player" id="ul-point-guard"></ul>
                 </div>
                 <div  class="div-player">
                     <h3>SHOOTING GUARD</h3>
-                    <ul class="ul-player"></ul>
+                    <ul class="ul-player" id="ul-shooting-guard"></ul>
                 </div>
                 <div  class="div-player">
                     <h3>SMALL FORWARD</h3>
-                    <ul class="ul-player"></ul>
+                    <ul class="ul-player" id="ul-small-forward"></ul>
                 </div>
                 <div class="div-player">
-                    <h3>Power Forward</h3>
-                    <ul class="ul-player"></ul>
+                    <h3>POWER FORWARD</h3>
+                    <ul class="ul-player" id="ul-power-forward"></ul>
                 </div>
                 <div class="div-player">
                     <h3>CENTER</h3>
-                    <ul class="ul-player"></ul>
+                    <ul class="ul-player" id="ul-center"></ul>
                 </div>
             </main>
         </div>
@@ -43,8 +45,8 @@
         <div class="div-from">
             
             <form action="" class="form">
-                <div>
-                    <select name="" id="select-position">
+                <div class="input-select-div" id="div-select">
+                    <select class="input-select"  name="" id="select-position">
                         <option >PG</option>
                         <option >SG</option>
                         <option >SF</option>
@@ -52,20 +54,20 @@
                         <option >C</option>
                     </select>
                 </div>
-                <div>
-                    <label for="" id="points-label"></label>
-                    <input type="range"  id="points" min="0" max="100000">
+                <div class="input-select-div" >
+                    <span for="" id="points-span">points</span>
+                    <input class="input-select" type="range"  id="points" min="0" max="100000">
+                </div>
+                <div class="input-select-div">
+                    <span for="" id="two-span">two</span>
+                    <input class="input-select" type="range" id="two-percent" min="0" max="100">
+                </div>
+                <div class="input-select-div">
+                    <span for="" id="three-span">three</span>
+                    <input class="input-select"  type="range" id="three-percent" min="0" max="100">
                 </div>
                 <div>
-                    <label for="" id="two-label"></label>
-                    <input type="range" id="two-percent" min="0" max="100">
-                </div>
-                <div>
-                    <label for="" id="three-label"></label>
-                    <input type="range" id="three-percent" min="0" max="100">
-                </div>
-                <div>
-                    <input type="submit" value="Search Player">
+                    <input type="submit" value="Search Player" id="submit-button">
                 </div>
             </form>
             <div class="table-div">

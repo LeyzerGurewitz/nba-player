@@ -9,11 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const BASE_URL = "https://nbaserver-q21u.onrender.com/api/filter";
+const BASE_URL_GET = "https://nbaserver-q21u.onrender.com/api/GetAllTeams";
+const inputThreePercent = document.querySelector("#three-percent");
+const inputTwoPercent = document.querySelector("#two-percent");
+const inputPoints = document.querySelector("#points");
 const tableElement = document.querySelector(".table");
 const formElement = document.querySelector(".form");
-const pointsLabelElement = document.querySelector;
-const twoLabelElement = document.querySelector;
-const trheeLableElement = document.querySelector;
+const pointsSpanElement = document.querySelector("#points-span");
+const twoSpanElement = document.querySelector("#two-span");
+const threeSpanElement = document.querySelector("#three-span");
 var Position;
 (function (Position) {
     Position["PG"] = "PG";
@@ -22,12 +26,6 @@ var Position;
     Position["PF"] = "PF";
     Position["C"] = "C";
 })(Position || (Position = {}));
-// const player: Player = {
-//     position: "C",
-//     twoPercent: 50,
-//     threePercent: 50,
-//     points: 1000
-// }
 function addPlayer(player) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -47,6 +45,25 @@ function addPlayer(player) {
         }
         catch (error) {
             console.error(error);
+        }
+    });
+}
+//In the middle of building the bonus
+function getAllPlayers() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const response = yield fetch(BASE_URL_GET);
+            if (!response.ok) {
+                throw new Error("Failed to fetch scooters");
+            }
+            const players = yield response.json();
+            console.log(players);
+            renderTable(players);
+            return players;
+        }
+        catch (error) {
+            console.error(error);
+            return [];
         }
     });
 }
@@ -75,25 +92,57 @@ const threePercentTableCreate = (player) => {
     tdThreePercent.innerText = player.threePercent.toString();
     return tdThreePercent;
 };
+const createUlPlayer = (player, ulPlayer) => {
+    ulPlayer.innerText = "";
+    const liPlayerName = document.createElement("li");
+    liPlayerName.innerText = player.playerName;
+    ulPlayer.appendChild(liPlayerName);
+    const liThree = document.createElement("li");
+    liThree.innerText = `three percent: ${player.threePercent.toString()}%`;
+    ulPlayer.appendChild(liThree);
+    const liTwo = document.createElement("li");
+    liTwo.innerText = `two percent: ${player.twoPercent.toString()}%`;
+    ulPlayer.appendChild(liTwo);
+    const liPoints = document.createElement("li");
+    liPoints.innerText = `points: ${player.points.toString()}`;
+    ulPlayer.appendChild(liPoints);
+};
+const addPlayerUl = (player) => {
+    const ulPointGuard = document.querySelector("#ul-point-guard");
+    const ulShootingGuard = document.querySelector("#ul-shooting-guard");
+    const ulSmallForward = document.querySelector("#ul-small-forward");
+    const ulPowerForward = document.querySelector("#ul-power-forward");
+    const ulCenter = document.querySelector("#ul-center");
+    switch (player.position) {
+        case "PG":
+            createUlPlayer(player, ulPointGuard);
+            break;
+        case "SG":
+            createUlPlayer(player, ulShootingGuard);
+            break;
+        case "SF":
+            createUlPlayer(player, ulSmallForward);
+            break;
+        case "PF":
+            createUlPlayer(player, ulPowerForward);
+            break;
+        case "C":
+            createUlPlayer(player, ulCenter);
+            break;
+        default:
+    }
+};
 const actionTableCreate = (player) => {
     const tdActions = document.createElement("td");
     tdActions.setAttribute("id", "actions");
     const addBtn = document.createElement("button");
     addBtn.innerText = `Add ${player.playerName} to Current Team`;
-    // deleteBtn.addEventListener("click", () => {
-    //     if (scooter.id) {
-    //         deleteScooterById(scooter.id).then(() => getAllScooter());
-    //     } else {
-    //         console.error("Scooter ID is undefined");
-    //     }
-    // });
+    addBtn.addEventListener("click", () => addPlayerUl(player));
     tdActions.appendChild(addBtn);
     return tdActions;
 };
-// addPlayer(player)
 const renderTable = (players) => {
     const rows = tableElement.querySelectorAll("tr");
-    // localStorage.setItem("soldiers", JSON.stringify(scooters));
     rows.forEach((row, index) => {
         if (index > 0) {
             row.remove();
@@ -104,6 +153,7 @@ const renderTable = (players) => {
         return;
     }
     players.forEach(player => {
+        console.log(JSON.stringify(player));
         const tr = document.createElement("tr");
         tr.appendChild(playerTableCreate(player));
         tr.appendChild(positionTableCreate(player));
@@ -124,4 +174,11 @@ const clickButtonSubmit = (e) => {
     };
     addPlayer(newPlayer);
 };
+const labelExchange = (span, numInput) => {
+    span.innerText = numInput.value;
+};
+inputThreePercent.addEventListener("input", () => { labelExchange(threeSpanElement, inputThreePercent); });
+inputPoints.addEventListener("input", () => { labelExchange(pointsSpanElement, inputPoints); });
+inputTwoPercent.addEventListener("input", () => { labelExchange(twoSpanElement, inputTwoPercent); });
 formElement.addEventListener("submit", clickButtonSubmit);
+// getAllPlayers() 

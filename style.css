@@ -11,14 +11,22 @@ body{
     display: flex;
     flex-direction: column;
 }
-.coontainer > h2 {
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.container > div > h2 {
     text-align: center;
+    margin-top: 50px;
+    color: blue;
 }
 .nav-player{
     background-color: blue;
+    width: 100%;
     height: 40px;
     margin-bottom: 25px;
     padding-top: 7px;
+    position: fixed;
 }
 .nav-player > h3{
     text-align: center;
@@ -31,6 +39,7 @@ body{
 }
 .div-player{
     min-height: 100px;
+    min-width: 150px;
     background-color: rgb(241, 238, 238);
     box-shadow: 2px 3px 4px gray;
     border-radius: 7px;
@@ -49,8 +58,12 @@ body{
     margin-top: 30px;
     width: 100%;
 }
+.section-form-list > h2{
+    margin-bottom: 15px;
+    color: blue;
+}
 .div-from{
-    width: 35%;
+    width: 40%;
     background-color:  rgb(241, 238, 238);;
     border-radius: 7px;
     
@@ -65,9 +78,47 @@ body{
     margin: 25px;
    
 }
-
-.table{
+.input-select-div{
     width: 100%;
+    display: flex;
+    
+}
+#div-select{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#select-position{
+    margin-right: 38px;
+}
+.input-select{
+    width: 70%;
+    margin-top: 5px;
+}
+span{
+    width: 50px;
+    background-color: blue;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+#submit-button{
+    border: none;
+    background-color: blue;
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    border-radius: 7px;
+}
+#submit-button:hover{
+    background-color: rgb(0, 0, 159);
+}
+.table-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.table{
+    width: 95%;
     border-collapse: collapse;
 }
 .table th {
@@ -81,18 +132,25 @@ body{
 #actions button{
     background-color: blue;
     border: none;
-    height: 15px;
-    /* margin: 5px; */
+    height: 15px;  
     border-radius: 7px;
     width: 100%;
     min-height: 50px;
 }
-
+#actions button:hover{
+    background-color: rgb(0, 0, 162);
+    
+}
 .table td{
-    /* background-color: rgb(43,61,80); */
-    border: 1px solid #d9dbde ;
+    border: 2px solid #d9dbde ;
     text-align: center;
     padding: 5px;
 }
 
-
+ul{
+    list-style-type: none;
+    text-align: center;
+}
+li{
+    margin: 15px;
+}

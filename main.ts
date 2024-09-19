@@ -1,10 +1,15 @@
 const BASE_URL: string = "https://nbaserver-q21u.onrender.com/api/filter"
-
+const BASE_URL_GET: string = "https://nbaserver-q21u.onrender.com/api/GetAllTeams"
+const inputThreePercent = document.querySelector("#three-percent") as HTMLInputElement;
+const inputTwoPercent = document.querySelector("#two-percent") as HTMLInputElement;
+const inputPoints = document.querySelector("#points") as HTMLInputElement;
 const tableElement = document.querySelector(".table") as HTMLTableElement;
 const formElement = document.querySelector(".form") as HTMLFormElement;
-const pointsLabelElement = document.querySelector
-const twoLabelElement = document.querySelector
-const trheeLableElement = document.querySelector
+const pointsSpanElement = document.querySelector("#points-span") as HTMLSpanElement
+const twoSpanElement = document.querySelector ("#two-span") as HTMLSpanElement
+const threeSpanElement = document.querySelector ("#three-span") as HTMLSpanElement
+
+
 enum Position {
     PG = "PG",
      SG = "SG",
@@ -28,14 +33,7 @@ interface Stats {
     points: Number;
 }
 
-// const player: Player = {
-//     position: "C",
-//     twoPercent: 50,
-//     threePercent: 50,
-//     points: 1000
 
-
-// }
 
 async function addPlayer(player: Stats): Promise<void> {
     try {
@@ -58,6 +56,23 @@ async function addPlayer(player: Stats): Promise<void> {
     } catch (error) {
         console.error(error);
 
+    }
+}
+
+//In the middle of building the bonus
+async function getAllPlayers(): Promise<Player[]> {
+    try {
+        const response = await fetch(BASE_URL_GET);
+        if (!response.ok) {
+            throw new Error("Failed to fetch scooters");
+        }
+        const players: Player[] = await response.json();
+        console.log(players);
+        renderTable(players);
+        return players;
+    } catch (error) {
+        console.error(error);
+        return []; 
     }
 }
 const playerTableCreate = (player: Player): HTMLTableCellElement => {
@@ -90,29 +105,67 @@ const threePercentTableCreate = (player: Player): HTMLTableCellElement => {
     return tdThreePercent;
 }
 
+
+const createUlPlayer: (player:Player, ulPlayer:HTMLUListElement) => void = (player:Player, ulPlayer:HTMLUListElement) => {
+    ulPlayer.innerText = ""
+    const liPlayerName = document.createElement("li")
+    liPlayerName.innerText = player.playerName
+    ulPlayer.appendChild(liPlayerName)
+    const liThree = document.createElement("li")
+    liThree.innerText = `three percent: ${player.threePercent.toString()}%`
+    ulPlayer.appendChild(liThree)
+    const liTwo = document.createElement("li")
+    liTwo.innerText = `two percent: ${player.twoPercent.toString()}%`
+    ulPlayer.appendChild(liTwo)
+    const liPoints = document.createElement("li")
+    liPoints.innerText = `points: ${player.points.toString()}`
+    ulPlayer.appendChild(liPoints)
+}
+
+const addPlayerUl: (player:Player) => void = (player:Player) =>{
+    const ulPointGuard = document.querySelector("#ul-point-guard") as HTMLUListElement;
+    const  ulShootingGuard = document.querySelector("#ul-shooting-guard") as HTMLUListElement;
+    const  ulSmallForward = document.querySelector("#ul-small-forward") as HTMLUListElement;
+    const  ulPowerForward = document.querySelector("#ul-power-forward") as HTMLUListElement;
+    const ulCenter = document.querySelector("#ul-center") as HTMLUListElement;
+
+    switch(player.position){
+        case "PG":
+            createUlPlayer(player, ulPointGuard)
+            break
+        case "SG":
+            createUlPlayer(player, ulShootingGuard)
+            break
+        case  "SF":
+            createUlPlayer(player, ulSmallForward)
+            break
+        case  "PF":  
+        createUlPlayer(player, ulPowerForward)
+            break    
+        case  "C":  
+        createUlPlayer(player, ulCenter)
+            break
+            default:
+              
+    }
+}
+
 const actionTableCreate = (player: Player): HTMLTableCellElement => {
     const tdActions = document.createElement("td");
     tdActions.setAttribute("id", "actions");
 
     const addBtn = document.createElement("button");
     addBtn.innerText = `Add ${player.playerName} to Current Team`;
-    // deleteBtn.addEventListener("click", () => {
-    //     if (scooter.id) {
-    //         deleteScooterById(scooter.id).then(() => getAllScooter());
-    //     } else {
-    //         console.error("Scooter ID is undefined");
-    //     }
-    // });
+    addBtn.addEventListener("click", () => addPlayerUl(player))
     tdActions.appendChild(addBtn);
     return tdActions;
 }
 
 
-// addPlayer(player)
+
 
 const renderTable: (players: Player[]) => void = (players: Player[]) => {
     const rows = tableElement.querySelectorAll("tr");
-    // localStorage.setItem("soldiers", JSON.stringify(scooters));
     rows.forEach((row, index) => {
         if (index > 0) {
             row.remove();
@@ -125,6 +178,7 @@ const renderTable: (players: Player[]) => void = (players: Player[]) => {
     }
 
     players.forEach(player => {
+        console.log(JSON.stringify(player));
         const tr = document.createElement("tr");
         tr.appendChild(playerTableCreate(player));
         tr.appendChild(positionTableCreate(player));
@@ -150,7 +204,13 @@ const clickButtonSubmit = (e: Event) => {
 
     addPlayer(newPlayer)
 }
+const labelExchange: (span:HTMLSpanElement, numInput:HTMLInputElement) => void = (span:HTMLSpanElement, numInput:HTMLInputElement) => {
+    span.innerText = numInput.value
+}
 
-
+inputThreePercent.addEventListener("input", ()=>{labelExchange(threeSpanElement, inputThreePercent)})
+inputPoints.addEventListener("input", ()=>{labelExchange(pointsSpanElement, inputPoints)})
+inputTwoPercent.addEventListener("input", ()=>{labelExchange(twoSpanElement, inputTwoPercent)})
 formElement.addEventListener("submit", clickButtonSubmit);
 
+// getAllPlayers() 
