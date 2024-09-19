@@ -97,9 +97,10 @@ body{
 }
 span{
     width: 50px;
-    background-color: blue;
+    background-color: rgb(42, 42, 42);
     border-radius: 5px;
     margin-top: 5px;
+    color: white;
 }
 #submit-button{
     border: none;
